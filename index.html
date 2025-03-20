@@ -3,93 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Слайдер</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Банковская карта</title>
+    <link rel="stylesheet" href="css.css">
 </head>
 <body>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
+    <div class="container">
+        <div class="form-container">
+            <form id="cardForm">
+                <label for="bankName">Название банка:</label>
+                <input type="text" id="bankName" name="bankName" required>
 
-.slider-container {
-    position: relative;
-    width: 300px;
-    height: 20px;
-    background-color: #ddd;
-    border-radius: 10px;
-}
+                <label for="paymentSystem">Тип платежной системы:</label>
+                <select id="paymentSystem" name="paymentSystem" required>
+                    <option value="visa">Visa</option>
+                    <option value="mastercard">MasterCard</option>
+                    <option value="mir">Мир</option>
+                </select>
 
-.slider-track {
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-    border-radius: 10px;
-}
+                <label for="cardNumber">Номер карты:</label>
+                <input type="text" id="cardNumber" name="cardNumber" maxlength="16" required>
 
-.slider-thumb {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-}
+                <label for="cardHolder">Имя держателя карты:</label>
+                <input type="text" id="cardHolder" name="cardHolder" required>
 
-.slider-value {
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    color: #000;
-}
-    </style>
-    <div class="slider-container">
-        <div class="slider-track" id="slider-track"></div>
-        <div class="slider-thumb" id="slider-thumb"></div>
-        <div class="slider-value" id="slider-value">50</div>
+                <label for="expiryDate">Месяц и год окончания:</label>
+                <input type="month" id="expiryDate" name="expiryDate" required>
+
+                <button type="submit">Добавить карту</button>
+            </form>
+        </div>
+        <div class="card-preview">
+            <div id="cardMiniature">
+                <div id="previewBankName">Название банка</div>
+                <div id="previewCardNumber">0000 0000 0000 0000</div>
+                <div id="previewExpiryDate">00/23</div>
+                <div id="previewCardHolder">ИМЯ ДЕРЖАТЕЛЯ</div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-    const sliderTrack = document.getElementById("slider-track");
-    const sliderThumb = document.getElementById("slider-thumb");
-    const sliderValue = document.getElementById("slider-value");
-    let isDragging = false;
-    const updateSlider = (clientX) => {
-        const rect = sliderTrack.getBoundingClientRect();
-        let newPosition = clientX - rect.left;
-        if (newPosition < 0) newPosition = 0;
-        if (newPosition > rect.width) newPosition = rect.width;
-        const percent = (newPosition / rect.width) * 100;
-        sliderThumb.style.left = `${percent}%`;
-        sliderValue.textContent = Math.round(percent);
-    };
-    sliderThumb.addEventListener("mousedown", (e) => {
-        isDragging = true;
-    });
-    document.addEventListener("mousemove", (e) => {
-        if (isDragging) {
-            updateSlider(e.clientX);
-        }
-    });
-    document.addEventListener("mouseup", () => {
-        isDragging = false;
-    });
-    sliderTrack.addEventListener("click", (e) => {
-        updateSlider(e.clientX);
-    });
-});
-    </script>
+    <table id="cardTable">
+        <thead>
+            <tr>
+                <th>Название банка</th>
+                <th>Тип платежной системы</th>
+                <th>Номер карты</th>
+                <th>Имя держателя карты</th>
+                <th>Месяц и год окончания</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script src="js.js"></script>
 </body>
 </html>
